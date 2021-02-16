@@ -1,7 +1,7 @@
 {
   "name": "cpeb",
   "version": "0.0.1",
-  "description": "Cross-process Event Bus",
+  "description": "Cross-Process Event Bus",
   "main": "lib/index.js",
   "types": "types.d.ts",
   "repository": "git@github.com:ezze/node-cpeb",

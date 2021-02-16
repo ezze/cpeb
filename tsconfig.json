@@ -2,14 +2,14 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./lib",
+    "rootDir": "src",
+    "outDir": "lib",
     "declaration": false,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["types/*.d.ts", "src/**/*"],
+  "include": ["types/index.d.ts", "src/**/*"],
   "exclude": []
 }

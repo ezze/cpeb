@@ -1428,10 +1428,10 @@ escodegen@^1.14.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-ezze-ts@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-ezze-ts/-/eslint-config-ezze-ts-0.11.0.tgz#ceb08086aa3d9b7d7b9356090bd152ef5fbc9976"
-  integrity sha512-9Uhv50DQGGBW0cysaSkU8w6Tu61GWYBZWNRQsoKIJhteSfbgQ+mdZrCLYeH4UYGZO+jG7RO3AWrKdQa0PKC79g==
+eslint-config-ezze-ts@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-ezze-ts/-/eslint-config-ezze-ts-0.11.1.tgz#90c42b5b6977f55e752cc1f1dfd3d014bcda0e7f"
+  integrity sha512-sOxjVejqkvuGbpHPZbesInrfvVzilVKErDKgiOGqPUcITMJ1qEneD0KCG6DC6Wx12jmeT0o/s71PWklXpQJLkg==
 
 eslint-scope@^5.0.0, eslint-scope@^5.1.1:
   version "5.1.1"

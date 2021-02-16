@@ -1,3 +1,9 @@
-import EventBus from './EventBus';
+import MainEventBus from './MainEventBus';
+import WorkerEventBus from './WorkerEventBus';
+import CliEventBus from './CliEventBus';
 
-export = EventBus;
+export {
+  MainEventBus,
+  WorkerEventBus,
+  CliEventBus
+};

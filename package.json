@@ -2,8 +2,34 @@
   "name": "cpeb",
   "version": "0.0.1",
   "description": "Cross-process Event Bus",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "types.d.ts",
   "repository": "git@github.com:ezze/node-cpeb",
   "author": "Dmitriy Pushkov <ezze@ezze.org>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "dist": "npm run clean && tsc -p tsconfig.json",
+    "watch": "npm run clean && tsc -p tsconfig.json --watch",
+    "clean": "rimraf lib",
+    "lint": "eslint src",
+    "lint:test": "eslint test",
+    "test": "jest --config jest.config.ts --runInBand",
+    "test:coverage": "rimraf coverage && cross-env COVERAGE=yes jest --config jest.config.ts --runInBand",
+    "test:ci": "rimraf coverage reports && cross-env COVERAGE=yes JEST_JUNIT_OUTPUT_DIR=reports/junit jest --config jest.config.ts --ci --reporters=default --reporters=jest-junit --runInBand",
+    "raise": "raise-version"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.20.0",
+    "eslint-config-ezze-ts": "^0.11.0",
+    "fs-extra": "^9.1.0",
+    "jest": "^26.6.3",
+    "raise-version": "^0.5.0",
+    "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  }
 }

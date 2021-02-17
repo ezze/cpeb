@@ -1,0 +1,9 @@
+{
+  "extends": "ezze-ts",
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
+}

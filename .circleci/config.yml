@@ -13,7 +13,7 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install dependencies
-          command: pwd && ls -la && yarn install --immutable && ls -la
+          command: yarn install --immutable
       - save_cache:
           name: Save Yarn dependencies cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -32,7 +32,7 @@ jobs:
           at: .
       - run:
           name: Lint source code
-          command: ls -la && yarn lint
+          command: yarn lint
 
   lint-test:
     docker:

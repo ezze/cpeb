@@ -4,7 +4,7 @@ import {
   getFiredEventHash
 } from './utils';
 
-abstract class EventBus {
+class EventBus {
   handlers: Record<string, EventHandlers> = {};
   paramTransformer?: EventParamTransformer;
   errorCallback?: ErrorCallback;
@@ -27,14 +27,14 @@ abstract class EventBus {
     return this.handlers[name] || [];
   }
 
-  on(name: string, handler: Function): void {
+  on(name: string, handler: EventHandler): void {
     if (!this.handlers[name]) {
       this.handlers[name] = [];
     }
     this.handlers[name].push(handler);
   }
 
-  off(name: string, handler: Function): void {
+  off(name: string, handler: EventHandler): void {
     if (!handler) {
       delete this.handlers[name];
       return;

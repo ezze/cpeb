@@ -103,15 +103,15 @@ describe('event bus', () => {
     eventBus.on('test', fn1);
     eventBus.on('test', fn2);
     const result1 = await eventBus.fire('test', 'foo');
-    expect(result1.executed.length).toEqual(2);
+    expect(result1.done.length).toEqual(2);
     expect(result1.skipped.length).toEqual(0);
-    const result2 = await eventBus.fire('test', 'foo', { cpeb: true, skip: [result1.executed[0]] });
+    const result2 = await eventBus.fire('test', 'foo', { cpeb: true, skip: [result1.done[0].hash] });
     expect(fn1).toHaveBeenCalledTimes(1);
     expect(fn2).toHaveBeenCalledTimes(2);
-    expect(result2.executed.length).toEqual(1);
+    expect(result2.done.length).toEqual(1);
     expect(result2.skipped.length).toEqual(1);
-    expect(result2.executed[0]).toEqual(result1.executed[1]);
-    expect(result2.skipped[0]).toEqual(result1.executed[0]);
+    expect(result2.done[0].hash).toEqual(result1.done[1].hash);
+    expect(result2.skipped[0].hash).toEqual(result1.done[0].hash);
   });
 
   describe('error handling', () => {
@@ -130,7 +130,7 @@ describe('event bus', () => {
       eventBus.on('test', errorHandler);
       const result = await eventBus.fire('test', 'foo');
       expect(errorHandler).toHaveBeenCalledTimes(1);
-      expect(result.executed.length).toEqual(1);
+      expect(result.done.length).toEqual(1);
     });
 
     it('run error callback on event firing when handler execution is failed', async() => {
@@ -141,7 +141,7 @@ describe('event bus', () => {
       expect(errorCallback).toHaveBeenCalledTimes(1);
       expect(errorCallback.mock.calls[0][0]).toBeInstanceOf(Error);
       expect(errorCallback.mock.calls[0][0].message).toEqual('handler error');
-      expect(result.executed.length).toEqual(1);
+      expect(result.done.length).toEqual(1);
     });
 
     it('throw an error and don\'t run callback on event firing when handler execution is failed', async() => {
@@ -170,7 +170,7 @@ describe('event bus', () => {
     eventBus2.on('test', fn2);
     const result1 = await eventBus1.fire('test', 'foo', 1);
     const result2 = await eventBus2.fire('test', 'foo', 1);
-    expect(result1.executed[0]).not.toEqual(result2.executed[0]);
+    expect(result1.done[0].hash).not.toEqual(result2.done[0].hash);
   });
 
   it('destroy instance', async() => {

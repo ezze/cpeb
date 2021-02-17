@@ -54,13 +54,14 @@ class EventBus {
     const { params, options } = parseEventFireArguments(args);
     const { throwError = false, skip = [] } = options;
 
-    const executed: EventHashes = [];
-    const skipped: EventHashes = [];
+    const done: EventHandlerExecutions = [];
+    const skipped: EventHandlerExecutions = [];
     for (let i = 0; i < handlers.length; i++) {
       const handler = handlers[i];
-      const firedEventHash = getFiredEventHash(name, normalizeEventParams(params, this.paramTransformer), handler);
-      if (skip.includes(firedEventHash)) {
-        skipped.push(firedEventHash);
+      const hash = getFiredEventHash(name, normalizeEventParams(params, this.paramTransformer), handler);
+      const execution = { name, params, handler, hash };
+      if (skip.includes(hash)) {
+        skipped.push(execution);
         continue;
       }
 
@@ -75,10 +76,10 @@ class EventBus {
           this.errorCallback(e);
         }
       }
-      executed.push(firedEventHash);
+      done.push(execution);
     }
 
-    return { executed, skipped };
+    return { done, skipped };
   }
 }
 

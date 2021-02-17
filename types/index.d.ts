@@ -10,6 +10,14 @@ declare type EventBusOptions = {
   errorCallback?: ErrorCallback;
 }
 
+declare type EventHandlerExecution = {
+  name: string;
+  params: Array<any>;
+  handler: EventHandler;
+  hash: string;
+};
+declare type EventHandlerExecutions = Array<EventHandlerExecution>;
+
 declare type EventHashes = Array<string>;
 
 declare type EventFireOptions = {
@@ -18,8 +26,8 @@ declare type EventFireOptions = {
 }
 
 declare type EventFireResult = {
-  executed: EventHashes;
-  skipped: EventHashes;
+  done: EventHandlerExecutions;
+  skipped: EventHandlerExecutions;
 }
 
 declare class EventBus {

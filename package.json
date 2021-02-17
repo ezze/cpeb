@@ -8,7 +8,7 @@
   "author": "Dmitriy Pushkov <ezze@ezze.org>",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "prepublishOnly": "npm run lint && npm run test && npm run dist",
     "dist": "npm run clean && tsc -p tsconfig.json",
     "watch": "npm run clean && tsc -p tsconfig.json --watch",
     "clean": "rimraf lib",

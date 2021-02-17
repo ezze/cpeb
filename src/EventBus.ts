@@ -34,18 +34,19 @@ class EventBus {
     this.handlers[name].push(handler);
   }
 
-  off(name: string, handler: EventHandler): void {
+  off(name: string, handler?: EventHandler): void {
     if (!handler) {
       delete this.handlers[name];
       return;
     }
-    if (!this.handlers[name]) {
-      return;
+    if (this.handlers[name]) {
+      const index = this.handlers[name].findIndex(h => h === handler);
+      if (index >= 0) {
+        this.handlers[name].splice(index, 1);
+        return;
+      }
     }
-    const index = this.handlers[name].findIndex(h => h === handler);
-    if (index >= 0) {
-      this.handlers[name].splice(index, 1);
-    }
+    throw new Error(`Handler for event "${name}" is not registered therefore it can't be removed`);
   }
 
   async fire(name: string, ...args: any[]): Promise<EventFireResult> {

@@ -1,5 +1,4 @@
 import EventBus from '../src/EventBus';
-import { create } from 'ts-node';
 
 describe('event bus', () => {
   it('register event handler and execute it when event is fired', async() => {

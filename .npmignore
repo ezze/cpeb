@@ -1,0 +1,12 @@
+.circleci
+.idea
+coverage
+node_modules
+reports
+src
+test
+*.log
+.eslintrc.json
+jest.config.ts
+tsconfig.json
+yarn*

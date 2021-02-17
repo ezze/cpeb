@@ -19,31 +19,33 @@ export function parseEventFireArguments(args: any): {
   return { params: args, options };
 }
 
-export function normalizeEventParams(params: any, customTransformer?: (params: any) => any): any {
-  if (!params || typeof params !== 'object') {
-    return params;
-  }
-
+export function normalizeEventParams(instance: any, customTransformer?: (instance: any) => any): any {
   if (customTransformer) {
-    const transformResult = customTransformer(params);
+    const transformResult = customTransformer(instance);
     if (transformResult !== undefined) {
       return transformResult;
     }
   }
 
-  if (params instanceof Date) {
-    return params.toISOString();
+  if (!instance || typeof instance !== 'object') {
+    return instance;
   }
 
-  if (Array.isArray(params)) {
+  if (instance instanceof Date) {
+    return instance.toISOString();
+  }
+
+  if (Array.isArray(instance)) {
     const array: Array<any> = [];
-    params.forEach(param => array.push(normalizeEventParams(param)));
+    instance.forEach(item => {
+      array.push(normalizeEventParams(item, customTransformer));
+    });
     return array;
   }
 
   const obj: Record<string, any> = {};
-  Object.keys(params).forEach((name: string) => {
-    obj[name] = normalizeEventParams(params[name]);
+  Object.keys(instance).forEach((name: string) => {
+    obj[name] = normalizeEventParams(instance[name], customTransformer);
   });
   return obj;
 }

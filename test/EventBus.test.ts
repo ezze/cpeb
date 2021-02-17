@@ -1,4 +1,5 @@
 import EventBus from '../src/EventBus';
+import { create } from 'ts-node';
 
 describe('event bus', () => {
   it('register event handler and execute it when event is fired', async() => {
@@ -153,6 +154,24 @@ describe('event bus', () => {
       })).rejects.toThrowError('handler error');
       expect(errorCallback).toHaveBeenCalledTimes(0);
     });
+  });
+
+  it('use param transformation function for event handler execution hash calculation', async() => {
+    const eventBus1 = await createEventBus();
+    const eventBus2 = await createEventBus({
+      paramTransformer: (instance): any => {
+        if (typeof instance === 'number') {
+          return instance.toString();
+        }
+      }
+    });
+    const fn1 = jest.fn();
+    const fn2 = jest.fn();
+    eventBus1.on('test', fn1);
+    eventBus2.on('test', fn2);
+    const result1 = await eventBus1.fire('test', 'foo', 1);
+    const result2 = await eventBus2.fire('test', 'foo', 1);
+    expect(result1.executed[0]).not.toEqual(result2.executed[0]);
   });
 
   it('destroy instance', async() => {

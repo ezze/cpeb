@@ -58,7 +58,7 @@ class EventBus {
     const skipped: EventHashes = [];
     for (let i = 0; i < handlers.length; i++) {
       const handler = handlers[i];
-      const firedEventHash = getFiredEventHash(name, normalizeEventParams(params), handler);
+      const firedEventHash = getFiredEventHash(name, normalizeEventParams(params, this.paramTransformer), handler);
       if (skip.includes(firedEventHash)) {
         skipped.push(firedEventHash);
         continue;

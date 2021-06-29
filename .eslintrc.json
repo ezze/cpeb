@@ -4,6 +4,8 @@
     "node": true
   },
   "rules": {
+    "semi": "off",
+    "@typescript-eslint/semi": ["error"],
     "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

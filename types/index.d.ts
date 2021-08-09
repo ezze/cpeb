@@ -10,7 +10,11 @@ declare interface EventBusOptions {
   errorCallback?: ErrorCallback;
 }
 
-declare interface EventHandlerExecution {
+declare type CrossProcessEventBusOptions = EventBusOptions & {
+  requestTimeoutMs?: number;
+}
+
+declare type EventHandlerExecution = {
   name: string;
   params: Array<any>;
   handler: EventHandler;
@@ -28,6 +32,22 @@ declare interface EventFireOptions {
 declare interface EventFireResult {
   done: EventHandlerExecutions;
   skipped: EventHandlerExecutions;
+}
+
+declare type EventBusRequestInitiator = 'main' | 'worker' | 'cli';
+declare type EventBusResponseStatus = 'done' | 'error';
+
+declare type EventBusRequest = {
+  name: string;
+  params?: Record<string, any>;
+}
+
+declare type EventBusResponse = {
+  id: string;
+  initiator: EventBusRequestInitiator;
+  initiatorId?: number;
+  name: string;
+  contents?: any;
 }
 
 declare class EventBus {
